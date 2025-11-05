@@ -1,232 +1,168 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Dashboard App',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
+        useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const HomePage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: const Text('Dashboard App'),
+        centerTitle: true,
       ),
-      body: Center(
-  // Center is a layout widget. It takes a single child and positions it
-  // in the middle of the parent.
-  child: SingleChildScrollView(
-    padding: const EdgeInsets.all(16.0),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        const Text('1) Columna básica', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-        Container(
-          padding: const EdgeInsets.all(12),
-          color: Colors.grey.shade200,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Text('A'),
-              SizedBox(height: 12),
-              Text('B'),
-              SizedBox(height: 12),
-              Text('C'),
-            ],
-          ),
-        ),
-        
-        const SizedBox(height: 24),
-        const Text('2) Row con espacios', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-        const SizedBox(height: 8),
-        Container(
-          padding: const EdgeInsets.all(12),
-          color: Colors.grey.shade200,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              Icon(Icons.home),
-              Icon(Icons.favorite),
-              Icon(Icons.person),
-            ],
-          ),
-        ),
-        
-        const SizedBox(height: 24),
-        const Text('3) Expanded & flex (proporciones)', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-        const SizedBox(height: 8),
-        Row(
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center, // centra verticalmente
+          crossAxisAlignment: CrossAxisAlignment.center, // centra horizontalmente
           children: [
-            Expanded(
-              flex: 2,
-              child: Container(
-                height: 40,
-                color: Colors.blue,
-                alignment: Alignment.center,
-                child: const Text('flex:2', style: TextStyle(color: Colors.white)),
-              ),
+
+            // 🔹 Encabezado
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                Icon(Icons.dashboard_customize, size: 40, color: Colors.teal),
+                Text(
+                  'Control Center',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
+                ),
+                Icon(Icons.notifications_active, size: 32, color: Colors.teal),
+              ],
             ),
-            const SizedBox(width: 8),
-            Expanded(
-              flex: 1,
-              child: Container(
-                height: 40,
-                color: Colors.green,
-                alignment: Alignment.center,
-                child: const Text('flex:1', style: TextStyle(color: Colors.white)),
-              ),
+
+            const SizedBox(height: 24),
+
+            // 🔹 Tarjetas (3 contenedores coloridos)
+            Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    height: 100,
+                    decoration: BoxDecoration(
+                      color: Colors.teal,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    alignment: Alignment.center,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Icon(Icons.bar_chart, color: Colors.white, size: 28),
+                        SizedBox(height: 8),
+                        Text(
+                          'Estadísticas',
+                          style: TextStyle(color: Colors.white, fontSize: 16),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Container(
+                    height: 100,
+                    decoration: BoxDecoration(
+                      color: Colors.cyan,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    alignment: Alignment.center,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Icon(Icons.people, color: Colors.white, size: 28),
+                        SizedBox(height: 8),
+                        Text(
+                          'Usuarios',
+                          style: TextStyle(color: Colors.white, fontSize: 16),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Container(
+                    height: 100,
+                    decoration: BoxDecoration(
+                      color: Colors.indigo,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    alignment: Alignment.center,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Icon(Icons.settings_applications,
+                            color: Colors.white, size: 28),
+                        SizedBox(height: 8),
+                        Text(
+                          'Configuración',
+                          style: TextStyle(color: Colors.white, fontSize: 16),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 24),
+
+            // 🔹 Secciones grandes
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Container(
+                  height: 120,
+                  decoration: BoxDecoration(
+                    color: Colors.teal[300],
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  alignment: Alignment.center,
+                  child: const Text(
+                    'Resumen General',
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Container(
+                  height: 120,
+                  decoration: BoxDecoration(
+                    color: Colors.teal[700],
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  alignment: Alignment.center,
+                  child: const Text(
+                    'Detalles de Actividad',
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
-
-        const SizedBox(height: 24),
-        const Text('4) crossAxisAlignment.stretch en Column', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-        const SizedBox(height: 8),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Container(height: 36, color: Colors.orange, alignment: Alignment.center, child: const Text('Ancho estirado')),
-            const SizedBox(height: 8),
-            Container(height: 36, color: Colors.orange, alignment: Alignment.center, child: const Text('Ancho estirado')),
-          ],
-        ),
-
-        const SizedBox(height: 24),
-        const Text('5) Baseline (solo Row con textos)', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-        const SizedBox(height: 8),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.baseline,
-          textBaseline: TextBaseline.alphabetic, // obligatorio con baseline
-          children: const [
-            Text('Texto base', style: TextStyle(fontSize: 20)),
-            SizedBox(width: 12),
-            Text('más chico', style: TextStyle(fontSize: 14)),
-            SizedBox(width: 12),
-            Text('MÁS GRANDE', style: TextStyle(fontSize: 28)),
-          ],
-        ),
-
-        const SizedBox(height: 24),
-        const Text('6) Row con texto largo (evitar overflow)', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-        const SizedBox(height: 8),
-        Row(
-          children: const [
-            Icon(Icons.info),
-            SizedBox(width: 8),
-            Expanded( // permite que el texto se ajuste y haga wrap
-              child: Text(
-                'Este es un texto largo que podría pasar el ancho de pantalla. Con Expanded evitamos el RenderFlex overflow.',
-              ),
-            ),
-          ],
-        ),
-
-        const SizedBox(height: 24),
-        const Text('7) crossAxisAlignment en Column', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-        const SizedBox(height: 8),
-
-         Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.grey),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end, 
-            children: [
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: const [
-                  CircleAvatar(radius: 20),
-                  SizedBox(width: 8),
-                  Icon(Icons.person),
-                ],
-              ),
-              const SizedBox(height: 8),
-              const Text('Rolando Perez Bahena'),
-              const Text('20223tn027@utez.edu.mx'),
-              const Text('7773070842'),
-            ],
-          ),
-        ),
-      ],
-    ),
-  ),
-),
-      
+      ),
     );
   }
 }
